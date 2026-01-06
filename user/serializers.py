@@ -1,7 +1,6 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
 from django.utils.translation import gettext as _
-from django.contrib.auth import authenticate
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -55,7 +54,7 @@ class AuthTokenSerializer(serializers.Serializer):
 
         if email and password:
             user = authenticate(request=self.context.get("request"),
-                                email=email, password=password)
+                                username=email, password=password)
 
             if not user:
                 msg = _("Unable to log in with provided credentials.")
